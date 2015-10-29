@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Profile View Controller-->
         <scene sceneID="NrB-B8-pXc">
             <objects>
-                <viewController id="H8Q-Ow-97Z" sceneMemberID="viewController">
+                <viewController id="H8Q-Ow-97Z" customClass="ProfileViewController" customModule="MySelfiegram" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mUX-qi-1Sc"/>
                         <viewControllerLayoutGuide type="bottom" id="rNP-Pu-1xm"/>
@@ -15,14 +15,51 @@
                     <view key="view" contentMode="scaleToFill" id="B5u-1v-sc5">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E9T-Tk-LJR">
+                                <rect key="frame" x="210" y="290" width="54" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Camera"/>
+                                <connections>
+                                    <action selector="cameraButtonPressed:" destination="H8Q-Ow-97Z" eventType="touchUpInside" id="Kb1-nQ-PzX"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aY2-dk-mrU">
+                                <rect key="frame" x="263" y="325" width="76" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="faY-rB-wxV">
+                                <rect key="frame" x="210" y="110" width="180" height="185"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="185" id="1gN-6z-X3i"/>
+                                    <constraint firstAttribute="width" constant="180" id="W9z-hs-GxK"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="faY-rB-wxV" firstAttribute="leading" secondItem="E9T-Tk-LJR" secondAttribute="trailing" constant="-54" id="4jw-eQ-fNs"/>
+                            <constraint firstItem="faY-rB-wxV" firstAttribute="top" secondItem="mUX-qi-1Sc" secondAttribute="bottom" constant="46" id="avF-PM-eqj"/>
+                            <constraint firstItem="aY2-dk-mrU" firstAttribute="top" secondItem="faY-rB-wxV" secondAttribute="bottom" constant="30" id="kwV-ph-87M"/>
+                            <constraint firstItem="aY2-dk-mrU" firstAttribute="centerX" secondItem="B5u-1v-sc5" secondAttribute="centerX" id="lNc-QE-0LQ"/>
+                            <constraint firstItem="faY-rB-wxV" firstAttribute="centerX" secondItem="B5u-1v-sc5" secondAttribute="centerX" id="nzF-dZ-bcj"/>
+                            <constraint firstItem="E9T-Tk-LJR" firstAttribute="top" secondItem="faY-rB-wxV" secondAttribute="bottom" constant="-5" id="sZm-8R-PdN"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="80P-qw-rKt"/>
+                    <connections>
+                        <outlet property="profileImageView" destination="faY-rB-wxV" id="Y6f-tK-hEq"/>
+                        <outlet property="usernameLabel" destination="aY2-dk-mrU" id="1RF-gK-E8k"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hgd-Td-Tl4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1657" y="1207"/>
+            <point key="canvasLocation" x="1661" y="1199"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="0GR-u1-Gcj">
@@ -182,5 +219,6 @@
         <image name="Activities" width="25" height="25"/>
         <image name="NewsFeed" width="25" height="25"/>
         <image name="Profile" width="25" height="25"/>
+        <image name="placeholder" width="256" height="256"/>
     </resources>
 </document>
