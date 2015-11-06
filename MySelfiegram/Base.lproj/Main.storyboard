@@ -77,8 +77,8 @@
                         </userDefinedRuntimeAttributes>
                     </tabBar>
                     <connections>
-                        <segue destination="cvH-X4-2X8" kind="relationship" relationship="viewControllers" id="EYN-2K-Juh"/>
                         <segue destination="W7U-Ej-dNZ" kind="relationship" relationship="viewControllers" id="PE1-MS-Avr"/>
+                        <segue destination="cvH-X4-2X8" kind="relationship" relationship="viewControllers" id="EYN-2K-Juh"/>
                         <segue destination="kIw-E9-XFG" kind="relationship" relationship="viewControllers" id="NqN-Ww-e0c"/>
                     </connections>
                 </tabBarController>
@@ -86,16 +86,16 @@
             </objects>
             <point key="canvasLocation" x="68" y="453"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Feed View Controller-->
         <scene sceneID="qsg-Cb-WsE">
             <objects>
-                <tableViewController id="XMt-Ki-jsu" sceneMemberID="viewController">
+                <tableViewController id="XMt-Ki-jsu" customClass="FeedViewController" customModule="MySelfiegram" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="rh6-Ft-xG8">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="5af-Qz-zaW">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="postCell" id="5af-Qz-zaW">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5af-Qz-zaW" id="Dil-IM-S7p">
