@@ -50,8 +50,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             //2. To our imageView, we set the image property to be the image the user has chosen
             profileImageView.image = image
             
-            let me = User(aUsername: "danny", aProfileImage: image);
-            
         }
         
         //3. We remember to dismiss the Image Picker from our screen.

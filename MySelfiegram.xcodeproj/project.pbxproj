@@ -7,15 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1222E5B61BD1B78F0082BC0D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1222E5B51BD1B78F0082BC0D /* ProfileViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		124DD12B1BEBEEC7009AE51A /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124DD12A1BEBEEC7009AE51A /* Post.swift */; settings = {ASSET_TAGS = (); }; };
-		124DD12D1BEBFFD7009AE51A /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124DD12C1BEBFFD7009AE51A /* FeedViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		1222E5B61BD1B78F0082BC0D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1222E5B51BD1B78F0082BC0D /* ProfileViewController.swift */; };
+		124DD12B1BEBEEC7009AE51A /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124DD12A1BEBEEC7009AE51A /* Post.swift */; };
+		124DD12D1BEBFFD7009AE51A /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124DD12C1BEBFFD7009AE51A /* FeedViewController.swift */; };
 		124E0BCE1BAB6275007A5E98 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E0BCD1BAB6275007A5E98 /* AppDelegate.swift */; };
 		124E0BD01BAB6275007A5E98 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E0BCF1BAB6275007A5E98 /* ViewController.swift */; };
 		124E0BD31BAB6275007A5E98 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 124E0BD11BAB6275007A5E98 /* Main.storyboard */; };
 		124E0BD81BAB6275007A5E98 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 124E0BD61BAB6275007A5E98 /* LaunchScreen.storyboard */; };
-		1262044D1BE2CBD600D1973B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1262044C1BE2CBD600D1973B /* User.swift */; settings = {ASSET_TAGS = (); }; };
-		12DA5AA11BC19784003699A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12DA5AA01BC19784003699A1 /* Assets.xcassets */; settings = {ASSET_TAGS = (); }; };
+		1262044D1BE2CBD600D1973B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1262044C1BE2CBD600D1973B /* User.swift */; };
+		12A60DDD1BEFB5A200DD216A /* SelfieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A60DDC1BEFB5A200DD216A /* SelfieCell.swift */; };
+		12AEC3591BF575260042DBC2 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12AEC3581BF575260042DBC2 /* Photos.framework */; };
+		12DA5AA11BC19784003699A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12DA5AA01BC19784003699A1 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,8 @@
 		124E0BD71BAB6275007A5E98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		124E0BD91BAB6275007A5E98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1262044C1BE2CBD600D1973B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		12A60DDC1BEFB5A200DD216A /* SelfieCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfieCell.swift; sourceTree = "<group>"; };
+		12AEC3581BF575260042DBC2 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		12DA5AA01BC19784003699A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -37,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12AEC3591BF575260042DBC2 /* Photos.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +51,7 @@
 		124E0BC11BAB6275007A5E98 = {
 			isa = PBXGroup;
 			children = (
+				12AEC3581BF575260042DBC2 /* Photos.framework */,
 				124E0BCC1BAB6275007A5E98 /* MySelfiegram */,
 				124E0BCB1BAB6275007A5E98 /* Products */,
 			);
@@ -66,6 +72,7 @@
 				124E0BCF1BAB6275007A5E98 /* ViewController.swift */,
 				1222E5B51BD1B78F0082BC0D /* ProfileViewController.swift */,
 				124DD12C1BEBFFD7009AE51A /* FeedViewController.swift */,
+				12A60DDC1BEFB5A200DD216A /* SelfieCell.swift */,
 				1262044C1BE2CBD600D1973B /* User.swift */,
 				124DD12A1BEBEEC7009AE51A /* Post.swift */,
 				124E0BD11BAB6275007A5E98 /* Main.storyboard */,
@@ -107,6 +114,7 @@
 				TargetAttributes = {
 					124E0BC91BAB6275007A5E98 = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 2VGL7CT34X;
 					};
 				};
 			};
@@ -148,6 +156,7 @@
 			files = (
 				1262044D1BE2CBD600D1973B /* User.swift in Sources */,
 				1222E5B61BD1B78F0082BC0D /* ProfileViewController.swift in Sources */,
+				12A60DDD1BEFB5A200DD216A /* SelfieCell.swift in Sources */,
 				124E0BD01BAB6275007A5E98 /* ViewController.swift in Sources */,
 				124E0BCE1BAB6275007A5E98 /* AppDelegate.swift in Sources */,
 				124DD12D1BEBFFD7009AE51A /* FeedViewController.swift in Sources */,
@@ -262,10 +271,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MySelfiegram/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ToyBoxMedia.MySelfiegram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -273,10 +285,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MySelfiegram/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ToyBoxMedia.MySelfiegram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
