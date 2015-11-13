@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Photos
 
 class FeedViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     
@@ -55,27 +54,7 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
         
         let post = self.posts?[indexPath.row]
         
-        if let imageUrl = post?.imageURL {
-            
-            // The foundation of the Photos framework is a PHAsset (a photo or video asset)
-            // Photos frameworks has this function that takes as input an array of photo URLs and
-            // returns the corresponding PHAsset reference ids for those urls
-            let asset = PHAsset.fetchAssetsWithALAssetURLs([imageUrl], options: nil)
-            
-            // Photos Framework comes with an default image manager we can use to get more than just an id reference for the PHAsset
-            let mgr = PHImageManager.defaultManager()
-            
-            // We use the method requestImageForAsset to get an image from the PHAsset
-            // we pass in a desired size and how we want the image to fit the size (AspectFill)
-            mgr.requestImageForAsset(asset.firstObject as! PHAsset, targetSize: CGSize(width: 600,height: 600), contentMode: PHImageContentMode.AspectFill, options: nil, resultHandler: { image, info in
-                
-                // we get back an image and then set it to our cell's selfieImageView.image property
-                cell.selfieImageView.image = image
-                
-            })
-            
-        }
-        
+        cell.selfieImageView.image = post?.image
         cell.usernameLabel.text = post?.user.username
         cell.commentLabel.text = post?.comment
         
@@ -113,16 +92,15 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
         
         // 1. When the delegate method is returned, it passes along a dictionary called info.
         //    This dictionary contains multiple things that maybe useful to us.
-        //    We are getting the local URL on the phone where the image is stored 
-        //    we are getting this from the UIImagePickerControllerReferenceURL key in that dictionary
-        if let imageURL = info[UIImagePickerControllerReferenceURL] as? NSURL {
+        //    We are getting an image from the UIImagePickerControllerOriginalImage key in that dictionary
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             
             //2. We create a Post object from the image
             let me = User(aUsername: "danny", aProfileImage: UIImage(named: "grumpy-cat")!)
-            let post = Post(imageURL: imageURL, user: me, comment: "My Photo")
+            let post = Post(image: image, user: me, comment: "My Selfie")
             
             //3. Add post to our posts array
-            posts?.append(post)
+            posts?.insert(post, atIndex: 0)
             
         }
         
