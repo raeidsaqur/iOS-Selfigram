@@ -32,6 +32,60 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
 //        posts = [post0, post1, post2, post3, post4]
         
         
+        let task = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&api_key=e33dc5502147cf3fd3515aa44224783f&tags=selfie")!) { (data, response, error) -> Void in
+            
+            let dataString = NSString(data: data!, encoding: 0)
+            
+            let jsonUnknown = try? NSJSONSerialization.JSONObjectWithData(data!, options: [])
+            let json = jsonUnknown as? [String : AnyObject]
+            let photos = json!["photos"]
+            
+            print(photos)
+            
+        }
+        
+        
+//        let task = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&api_key=e33dc5502147cf3fd3515aa44224783f&tags=selfie")!) {
+//            data, resp, err in
+//            
+//            
+//            
+//            if let d = data,
+//                let jsonUnknown = try? NSJSONSerialization.JSONObjectWithData(d, options: []),
+//                let json = jsonUnknown as? [String : AnyObject],
+//                let posts = json["data"] as? [[String : AnyObject]]{
+//                    
+//                    for post in posts {
+//                        
+//                        if let caption = post["caption"] as? [String : AnyObject],
+//                            let from = caption["from"] as? [String : AnyObject],
+//                            let username = from["username"] as? String,
+//                            let full_name = from["full_name"] as? String,
+//                            //let profile_picture = from["profile_picture"] as? String,
+//                            let comment = caption["text"] as? String {
+//                                
+//                                
+//                                let user = User()
+//                                user.username = username
+//                                user.fullname = full_name
+//                                
+//                                let np = Post(image: nil, user: user, comment: comment)
+//                                self.posts.append(np)
+//                                
+//                        }
+//                        
+//                    }
+//                    
+//                    dispatch_async(dispatch_get_main_queue()) {
+//                        self.tableView.reloadData()
+//                    }
+//                    
+//            }
+//        
+//            
+//        }
+        
+        task.resume()
 
     }
     
@@ -54,27 +108,6 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
         let cell = tableView.dequeueReusableCellWithIdentifier("postCell", forIndexPath: indexPath) as! SelfieCell
         
         let post = self.posts?[indexPath.row]
-        
-        if let imageUrl = post?.imageURL {
-            
-            // The foundation of the Photos framework is a PHAsset (a photo or video asset)
-            // Photos frameworks has this function that takes as input an array of photo URLs and
-            // returns the corresponding PHAsset reference ids for those urls
-            let asset = PHAsset.fetchAssetsWithALAssetURLs([imageUrl], options: nil)
-            
-            // Photos Framework comes with an default image manager we can use to get more than just an id reference for the PHAsset
-            let mgr = PHImageManager.defaultManager()
-            
-            // We use the method requestImageForAsset to get an image from the PHAsset
-            // we pass in a desired size and how we want the image to fit the size (AspectFill)
-            mgr.requestImageForAsset(asset.firstObject as! PHAsset, targetSize: CGSize(width: 600,height: 600), contentMode: PHImageContentMode.AspectFill, options: nil, resultHandler: { image, info in
-                
-                // we get back an image and then set it to our cell's selfieImageView.image property
-                cell.selfieImageView.image = image
-                
-            })
-            
-        }
         
         cell.usernameLabel.text = post?.user.username
         cell.commentLabel.text = post?.comment
