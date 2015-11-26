@@ -10,7 +10,7 @@ import UIKit
 
 class FeedViewController: UITableViewController {
     
-    var posts:[Post]?
+    var posts = [Post]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +49,7 @@ class FeedViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("postCell", forIndexPath: indexPath)
         
-        let post = posts?[indexPath.row]
+        let post = posts[indexPath.row]
         cell.imageView?.image = post?.image
         cell.textLabel?.text = post?.comment
         
