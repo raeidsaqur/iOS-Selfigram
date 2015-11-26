@@ -32,13 +32,10 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
 //        posts = [post0, post1, post2, post3, post4]
         
         
-        let task = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&api_key=e33dc5502147cf3fd3515aa44224783f&tags=selfie")!) { (data, response, error) -> Void in
+        let task = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=e33dc5502147cf3fd3515aa44224783f&tags=selfie")!) { (data, response, error) -> Void in
             
-            let dataString = NSString(data: data!, encoding: 0)
-            
-            let jsonUnknown = try? NSJSONSerialization.JSONObjectWithData(data!, options: [])
-            let json = jsonUnknown as? [String : AnyObject]
-            let photos = json!["photos"]
+            let json = try? NSJSONSerialization.JSONObjectWithData(data!, options: []) as? [String : AnyObject]
+            let photos = json!!["photos"]
             
             print(photos)
             

@@ -151,6 +151,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="jyS-uZ-vS3">
                         <barButtonItem key="rightBarButtonItem" systemItem="camera" id="b1O-Ym-qKu">
+                            <color key="tintColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                             <connections>
                                 <action selector="cameraButtonPressed:" destination="XMt-Ki-jsu" id="6BO-oG-xvs"/>
                             </connections>
