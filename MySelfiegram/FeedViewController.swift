@@ -10,7 +10,7 @@ import UIKit
 
 class FeedViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     
-    var posts:[Post]? = [Post]()
+    var posts = [Post]()
     
     var words = ["Hello", "my", "name", "is", "Selfigram"]
     
@@ -46,17 +46,17 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.posts?.count ?? 0
+        return self.posts.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("postCell", forIndexPath: indexPath) as! SelfieCell
         
-        let post = self.posts?[indexPath.row]
+        let post = self.posts[indexPath.row]
         
-        cell.selfieImageView.image = post?.image
-        cell.usernameLabel.text = post?.user.username
-        cell.commentLabel.text = post?.comment
+        cell.selfieImageView.image = post.image
+        cell.usernameLabel.text = post.user.username
+        cell.commentLabel.text = post.comment
         
         return cell
     }
@@ -100,7 +100,7 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
             let post = Post(image: image, user: me, comment: "My Selfie")
             
             //3. Add post to our posts array
-            posts?.insert(post, atIndex: 0)
+            posts.insert(post, atIndex: 0)
             
         }
         
