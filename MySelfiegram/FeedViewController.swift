@@ -11,7 +11,7 @@ import Photos
 
 class FeedViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     
-    var posts:[Post]? = [Post]()
+    var posts = [Post]()
     
     var words = ["Hello", "my", "name", "is", "Selfigram"]
     
@@ -33,54 +33,34 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
         
         
         let task = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=e33dc5502147cf3fd3515aa44224783f&tags=selfie")!) { (data, response, error) -> Void in
-            
-            let json = try? NSJSONSerialization.JSONObjectWithData(data!, options: []) as? [String : AnyObject]
-            let photos = json!!["photos"]
-            
-            print(photos)
+
+            if let jsonUnformatted = try? NSJSONSerialization.JSONObjectWithData(data!, options: []),
+                let json = jsonUnformatted as? [String : AnyObject],
+                let photosDictionary = json["photos"] as? [String : AnyObject],
+                let photosArray = photosDictionary["photo"] as? [[String : AnyObject]]
+            {
+                
+                for photo in photosArray {
+                    
+                    if let farmID = photo["farm"] as? Int,
+                        let serverID = photo["server"] as? String,
+                        let photoID = photo["id"] as? String,
+                        let secret = photo["secret"] as? String {
+                    
+                            let photoURLString = "https://farm\(farmID).staticflickr.com/\(serverID)/\(photoID)_\(secret).jpg"
+                            if let photoURL = NSURL(string: photoURLString){
+                                let me = User(aUsername: "danny", aProfileImage: UIImage(named: "grumpy-cat")!)
+                                let post = Post(imageURL: photoURL, user: me, comment: "A Flickr Selfie")
+                                self.posts.append(post)
+                            }
+                    }
+                
+                }
+            }else{
+                print("error with response data")
+            }
             
         }
-        
-        
-//        let task = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&api_key=e33dc5502147cf3fd3515aa44224783f&tags=selfie")!) {
-//            data, resp, err in
-//            
-//            
-//            
-//            if let d = data,
-//                let jsonUnknown = try? NSJSONSerialization.JSONObjectWithData(d, options: []),
-//                let json = jsonUnknown as? [String : AnyObject],
-//                let posts = json["data"] as? [[String : AnyObject]]{
-//                    
-//                    for post in posts {
-//                        
-//                        if let caption = post["caption"] as? [String : AnyObject],
-//                            let from = caption["from"] as? [String : AnyObject],
-//                            let username = from["username"] as? String,
-//                            let full_name = from["full_name"] as? String,
-//                            //let profile_picture = from["profile_picture"] as? String,
-//                            let comment = caption["text"] as? String {
-//                                
-//                                
-//                                let user = User()
-//                                user.username = username
-//                                user.fullname = full_name
-//                                
-//                                let np = Post(image: nil, user: user, comment: comment)
-//                                self.posts.append(np)
-//                                
-//                        }
-//                        
-//                    }
-//                    
-//                    dispatch_async(dispatch_get_main_queue()) {
-//                        self.tableView.reloadData()
-//                    }
-//                    
-//            }
-//        
-//            
-//        }
         
         task.resume()
 
@@ -98,16 +78,17 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.posts?.count ?? 0
+        return self.posts.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("postCell", forIndexPath: indexPath) as! SelfieCell
         
-        let post = self.posts?[indexPath.row]
+        let post = self.posts[indexPath.row]
         
-        cell.usernameLabel.text = post?.user.username
-        cell.commentLabel.text = post?.comment
+        cell.imageView?.image = 
+        cell.usernameLabel.text = post.user.username
+        cell.commentLabel.text = post.comment
         
         return cell
     }
@@ -152,7 +133,7 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
             let post = Post(imageURL: imageURL, user: me, comment: "My Photo")
             
             //3. Add post to our posts array
-            posts?.append(post)
+            posts.append(post)
             
         }
         
