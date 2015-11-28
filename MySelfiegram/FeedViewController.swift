@@ -32,7 +32,7 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
 //        posts = [post0, post1, post2, post3, post4]
         
         
-        let task = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=e33dc5502147cf3fd3515aa44224783f&tags=selfie")!) { (data, response, error) -> Void in
+        let task = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&safe_search=3&nojsoncallback=1&api_key=e33dc5502147cf3fd3515aa44224783f&tags=cat")!) { (data, response, error) -> Void in
 
             if let jsonUnformatted = try? NSJSONSerialization.JSONObjectWithData(data!, options: []),
                 let json = jsonUnformatted as? [String : AnyObject],
@@ -56,6 +56,13 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
                     }
                 
                 }
+                
+                // We use dispatch_async because we need update all UI elements on the main thread.
+                // This is a rule and you will see if again whenever you are updating UI.
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.tableView.reloadData()
+                })
+                
             }else{
                 print("error with response data")
             }
@@ -86,7 +93,26 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
         
         let post = self.posts[indexPath.row]
         
-        cell.imageView?.image = 
+
+        // I've added this line to prevent flickering of images
+        // We are inside the cellForRowAtIndexPath method that gets called everything we lay out a cell
+        // This always resets the image to blank, waits for the image to download, and then sets it
+        cell.selfieImageView.image = nil
+        
+        let task = NSURLSession.sharedSession().downloadTaskWithURL(post.imageURL) { (url, response, error) -> Void in
+            
+            if let imageURL = url,
+                let imageData = NSData(contentsOfURL: imageURL){
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        
+                        cell.selfieImageView.image = UIImage(data: imageData)
+                        
+                    })
+            }
+        }
+        
+        task.resume()
+        
         cell.usernameLabel.text = post.user.username
         cell.commentLabel.text = post.comment
         
