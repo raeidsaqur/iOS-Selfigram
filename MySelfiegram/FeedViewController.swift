@@ -18,72 +18,7 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // UIImage has an initalized where you can pass in the name of an image in your project to create an UIImage
-        // UIImage(named: "grumpy-cat") can return nil if there is no image called "grumpy-cat" in your project
-        // Our definition of Post did not include the possibility of a nil UIImage
-        // so, therefore we have to add a ! at the end of it
         
-//        let post0 = Post(image: UIImage(named: "grumpy-cat")!, user: me, comment: "Grumpy Cat 0")
-//        let post1 = Post(image: UIImage(named: "grumpy-cat")!, user: me, comment: "Grumpy Cat 1")
-//        let post2 = Post(image: UIImage(named: "grumpy-cat")!, user: me, comment: "Grumpy Cat 2")
-//        let post3 = Post(image: UIImage(named: "grumpy-cat")!, user: me, comment: "Grumpy Cat 3")
-//        let post4 = Post(image: UIImage(named: "grumpy-cat")!, user: me, comment: "Grumpy Cat 4")
-        
-//        posts = [post0, post1, post2, post3, post4]
-        
-        
-        let task = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&api_key=e33dc5502147cf3fd3515aa44224783f&tags=selfie")!) { (data, response, error) -> Void in
-            
-            let jsonUnknown = try? NSJSONSerialization.JSONObjectWithData(data!, options: [NSJSONReadingOptions.MutableLeaves])
-            let json = jsonUnknown as? [String : AnyObject]
-            let photos = json!["photos"]
-            
-            print(photos)
-            
-        }
-        
-        
-//        let task = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&api_key=e33dc5502147cf3fd3515aa44224783f&tags=selfie")!) {
-//            data, resp, err in
-//            
-//            
-//            
-//            if let d = data,
-//                let jsonUnknown = try? NSJSONSerialization.JSONObjectWithData(d, options: []),
-//                let json = jsonUnknown as? [String : AnyObject],
-//                let posts = json["data"] as? [[String : AnyObject]]{
-//                    
-//                    for post in posts {
-//                        
-//                        if let caption = post["caption"] as? [String : AnyObject],
-//                            let from = caption["from"] as? [String : AnyObject],
-//                            let username = from["username"] as? String,
-//                            let full_name = from["full_name"] as? String,
-//                            //let profile_picture = from["profile_picture"] as? String,
-//                            let comment = caption["text"] as? String {
-//                                
-//                                
-//                                let user = User()
-//                                user.username = username
-//                                user.fullname = full_name
-//                                
-//                                let np = Post(image: nil, user: user, comment: comment)
-//                                self.posts.append(np)
-//                                
-//                        }
-//                        
-//                    }
-//                    
-//                    dispatch_async(dispatch_get_main_queue()) {
-//                        self.tableView.reloadData()
-//                    }
-//                    
-//            }
-//        
-//            
-//        }
-        
-        task.resume()
 
     }
     
