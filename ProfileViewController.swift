@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -44,12 +45,25 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         // 1. When the delegate method is returned, it passes along a dictionary called info.
         //    This dictionary contains multiple things that maybe useful to us.
-        //    We are getting an image from the UIImagePickerControllerOriginalImage key in that dictionary
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        //    We are getting a the URL where the image is save from 
+        //     the UIImagePickerControllerReferenceURL key in that dictionary
+        if let imageURL = info[UIImagePickerControllerReferenceURL] as? NSURL {
             
             //2. To our imageView, we set the image property to be the image the user has chosen
+            
+            let imageData = NSData(contentsOfURL: imageURL)!
+            
+            // set our profileImageView to be the image we have picked
+            let image = UIImage(data: imageData)
             profileImageView.image = image
             
+            // upload our file to Parse
+            let imageFile = PFFile(data: imageData)
+            imageFile?.saveInBackgroundWithBlock({ (success, error) -> Void in
+                if success {
+                    print("image successfully uploaded to Parse")
+                }
+            })
         }
         
         //3. We remember to dismiss the Image Picker from our screen.
@@ -61,9 +75,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
-        usernameLabel.text = "danny"
-        
+        if let user = PFUser.currentUser(){
+            usernameLabel.text = user.username
+        }
     }
 
     override func didReceiveMemoryWarning() {
