@@ -6,21 +6,35 @@
 //  Copyright © 2015 Daniel Mathews. All rights reserved.
 //
 
-import UIKit
+import Parse
 
-class Post {
+class Post:PFObject, PFSubclassing {
     
-    let imageURL:NSURL
-    let user:User
-    let comment:String
+    @NSManaged var image:PFFile
+    @NSManaged var user:PFUser
+    @NSManaged var comment:String
     
-    init(imageURL:NSURL, user:User, comment:String){
+    override class func initialize() {
+        struct Static {
+            static var onceToken : dispatch_once_t = 0;
+        }
+        dispatch_once(&Static.onceToken) {
+            self.registerSubclass()
+        }
+    }
+    
+    static func parseClassName() -> String {
+        return "Post"
+    }
+    
+    init(image:PFFile, user:PFUser, comment:String){
         // You can name the property you are passing into the function the
         // same name as the class' property. To distinguish the two
         // add "self." to the beginning of the class' property.
         // So for example we are passing in an NSURL called imageURL and setting it as our
         // imageURL property for Post.
-        self.imageURL = imageURL
+        super.init()
+        self.image = image
         self.user = user
         self.comment = comment
     }
