@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import Parse
 
 class FeedViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     
@@ -18,6 +19,18 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let query = Post.query() {
+            query.orderByDescending("createdAt")
+            query.includeKey("user")
+            query.findObjectsInBackgroundWithBlock({ (posts, error) -> Void in
+                
+                if let posts = posts as? [Post]{
+                    self.posts = posts
+                    self.tableView.reloadData()
+                }
+                
+            })
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -46,7 +59,13 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
         // This always resets the image to blank, waits for the image to download, and then sets it
         cell.selfieImageView.image = nil
         
-        
+        let imageFile = post.image
+        imageFile.getDataInBackgroundWithBlock { (data, error) -> Void in
+            if let data = data {
+                let image = UIImage(data: data)
+                cell.selfieImageView.image = image
+            }
+        }
         
         cell.usernameLabel.text = post.user.username
         cell.commentLabel.text = post.comment
@@ -85,24 +104,37 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
         
         // 1. When the delegate method is returned, it passes along a dictionary called info.
         //    This dictionary contains multiple things that maybe useful to us.
-        //    We are getting the local URL on the phone where the image is stored
-        //    we are getting this from the UIImagePickerControllerReferenceURL key in that dictionary
+        //    We are getting the image picked from the UIImagePickerControllerOriginalImage key in that dictionary
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             
-            //2. We create a Post object from the image
-            let me = User(aUsername: "danny", aProfileImage: UIImage(named: "grumpy-cat")!)
-            let post = Post(imageURL: imageURL, user: me, comment: "My Photo")
-            
-            //3. Add post to our posts array
-            posts.append(post)
-            
+            // setting the compression quality to 90%
+            if let imageData = UIImageJPEGRepresentation(image, 0.9),
+                let imageFile = PFFile(data: imageData),
+                let user = PFUser.currentUser(){
+                    
+                    //2. We create a Post object from the image
+                    let post = Post(image: imageFile, user: user, comment: "A Selfie")
+
+                    post.saveInBackgroundWithBlock({ (success, error) -> Void in
+                        if success {
+                            print("Post successfully saved in Parse")
+                            
+                            //3. Add post to our posts array, chose index 0 so that it will be added
+                            //   to the top of your table instead of at the bottom (default behaviour)
+                            self.posts.insert(post, atIndex: 0)
+                            
+                            //4. Now that we have added a post, updating our table
+                            //   We are just inserting our new Post instead of reloading our whole tableView
+                            //   Both method would work, however, this gives us a cool animation for free
+                            self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+                            
+                        }
+                    })
+            }
         }
         
-        //4. We remember to dismiss the Image Picker from our screen.
+        //5. We remember to dismiss the Image Picker from our screen.
         dismissViewControllerAnimated(true, completion: nil)
-        
-        //5. Now that we have added a post, reload our table
-        tableView.reloadData()
         
     }
     
