@@ -15,6 +15,9 @@
 		124E0BD31BAB6275007A5E98 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 124E0BD11BAB6275007A5E98 /* Main.storyboard */; };
 		124E0BD81BAB6275007A5E98 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 124E0BD61BAB6275007A5E98 /* LaunchScreen.storyboard */; };
 		1262044D1BE2CBD600D1973B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1262044C1BE2CBD600D1973B /* User.swift */; };
+		1293A13C1C1CF12700C46514 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1293A13B1C1CF12700C46514 /* Activity.swift */; };
+		1293A13E1C1CF8A100C46514 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1293A13D1C1CF8A100C46514 /* ActivityViewController.swift */; };
+		1293A1401C1CFA8000C46514 /* ActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1293A13F1C1CFA8000C46514 /* ActivityCell.swift */; };
 		12A60DDD1BEFB5A200DD216A /* SelfieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A60DDC1BEFB5A200DD216A /* SelfieCell.swift */; };
 		12AEC3591BF575260042DBC2 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12AEC3581BF575260042DBC2 /* Photos.framework */; };
 		12DA5AA11BC19784003699A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12DA5AA01BC19784003699A1 /* Assets.xcassets */; };
@@ -34,6 +37,9 @@
 		124E0BD71BAB6275007A5E98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		124E0BD91BAB6275007A5E98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1262044C1BE2CBD600D1973B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		1293A13B1C1CF12700C46514 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		1293A13D1C1CF8A100C46514 /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		1293A13F1C1CFA8000C46514 /* ActivityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCell.swift; sourceTree = "<group>"; };
 		12A60DDC1BEFB5A200DD216A /* SelfieCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfieCell.swift; sourceTree = "<group>"; };
 		12AEC3581BF575260042DBC2 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		12DA5AA01BC19784003699A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -79,9 +85,12 @@
 				124E0BCF1BAB6275007A5E98 /* ViewController.swift */,
 				1222E5B51BD1B78F0082BC0D /* ProfileViewController.swift */,
 				124DD12C1BEBFFD7009AE51A /* FeedViewController.swift */,
+				1293A13D1C1CF8A100C46514 /* ActivityViewController.swift */,
+				1293A13F1C1CFA8000C46514 /* ActivityCell.swift */,
 				12A60DDC1BEFB5A200DD216A /* SelfieCell.swift */,
 				1262044C1BE2CBD600D1973B /* User.swift */,
 				124DD12A1BEBEEC7009AE51A /* Post.swift */,
+				1293A13B1C1CF12700C46514 /* Activity.swift */,
 				124E0BD11BAB6275007A5E98 /* Main.storyboard */,
 				12DA5AA01BC19784003699A1 /* Assets.xcassets */,
 				124E0BD61BAB6275007A5E98 /* LaunchScreen.storyboard */,
@@ -231,10 +240,13 @@
 			files = (
 				1262044D1BE2CBD600D1973B /* User.swift in Sources */,
 				1222E5B61BD1B78F0082BC0D /* ProfileViewController.swift in Sources */,
+				1293A1401C1CFA8000C46514 /* ActivityCell.swift in Sources */,
 				12A60DDD1BEFB5A200DD216A /* SelfieCell.swift in Sources */,
 				124E0BD01BAB6275007A5E98 /* ViewController.swift in Sources */,
+				1293A13E1C1CF8A100C46514 /* ActivityViewController.swift in Sources */,
 				124E0BCE1BAB6275007A5E98 /* AppDelegate.swift in Sources */,
 				124DD12D1BEBFFD7009AE51A /* FeedViewController.swift in Sources */,
+				1293A13C1C1CF12700C46514 /* Activity.swift in Sources */,
 				124DD12B1BEBEEC7009AE51A /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

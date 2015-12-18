@@ -13,6 +13,9 @@ class Post:PFObject, PFSubclassing {
     @NSManaged var image:PFFile
     @NSManaged var user:PFUser
     @NSManaged var comment:String
+    var likes: PFRelation! {
+        return relationForKey("likes")
+    }
     
     override class func initialize() {
         struct Static {
