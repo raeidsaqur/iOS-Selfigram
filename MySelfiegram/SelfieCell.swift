@@ -15,6 +15,7 @@ class SelfieCell: UITableViewCell {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var commentLabel: UILabel!
     @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var doubleTapImageView: UIImageView!
     
     var post:Post? {
         didSet{
@@ -138,6 +139,23 @@ class SelfieCell: UITableViewCell {
                 })
                 
             }
+        }
+        
+    }
+    
+    func tapAnimation() {
+        
+        doubleTapImageView.hidden = false;
+
+        UIView.animateWithDuration(1.0, delay: 0, options: [], animations: { () -> Void in
+            
+            self.doubleTapImageView.transform = CGAffineTransformMakeScale(3, 3)
+            
+            
+        }) { (success) -> Void in
+            
+            self.doubleTapImageView.transform = CGAffineTransformMakeScale(0, 0)
+            self.doubleTapImageView.hidden = true
         }
         
     }

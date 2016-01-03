@@ -89,6 +89,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="324" sectionHeaderHeight="28" sectionFooterHeight="28" id="rh6-Ft-xG8">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <gestureRecognizers/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="postCell" rowHeight="320" id="5af-Qz-zaW" customClass="SelfieCell" customModule="MySelfiegram" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="320"/>
@@ -109,12 +110,6 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="roQ-Wc-Mey">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="250"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="250" id="yDR-P4-mcm"/>
-                                            </constraints>
-                                        </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zez-Td-vCv">
                                             <rect key="frame" x="569" y="258" width="23" height="20"/>
                                             <constraints>
@@ -129,9 +124,24 @@
                                                 <action selector="likeButtonClicked:" destination="5af-Qz-zaW" eventType="touchUpInside" id="7mc-mn-cor"/>
                                             </connections>
                                         </button>
+                                        <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="roQ-Wc-Mey">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="250"/>
+                                            <gestureRecognizers/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="250" id="yDR-P4-mcm"/>
+                                            </constraints>
+                                        </imageView>
+                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hearts-on" translatesAutoresizingMaskIntoConstraints="NO" id="3MV-Mq-2aE">
+                                            <rect key="frame" x="289" y="150" width="23" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="G5B-Fk-dRh"/>
+                                                <constraint firstAttribute="width" constant="23" id="nfN-3t-Tfh"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="zYc-L3-hKt" firstAttribute="top" secondItem="hsT-xs-XXE" secondAttribute="bottom" constant="8" id="9PO-Nv-eDB"/>
+                                        <constraint firstItem="3MV-Mq-2aE" firstAttribute="centerX" secondItem="Dil-IM-S7p" secondAttribute="centerX" id="CSm-E6-fxn"/>
                                         <constraint firstItem="hsT-xs-XXE" firstAttribute="leading" secondItem="Dil-IM-S7p" secondAttribute="leadingMargin" id="CgA-NN-HWo"/>
                                         <constraint firstItem="roQ-Wc-Mey" firstAttribute="leading" secondItem="Dil-IM-S7p" secondAttribute="leading" id="FWW-BV-me6"/>
                                         <constraint firstItem="hsT-xs-XXE" firstAttribute="top" secondItem="roQ-Wc-Mey" secondAttribute="bottom" constant="8" id="UrH-M3-GG5"/>
@@ -140,10 +150,12 @@
                                         <constraint firstItem="roQ-Wc-Mey" firstAttribute="top" secondItem="Dil-IM-S7p" secondAttribute="top" id="k4V-NQ-9eG"/>
                                         <constraint firstItem="zYc-L3-hKt" firstAttribute="leading" secondItem="Dil-IM-S7p" secondAttribute="leadingMargin" id="kAL-ed-3oe"/>
                                         <constraint firstItem="Zez-Td-vCv" firstAttribute="top" secondItem="roQ-Wc-Mey" secondAttribute="bottom" constant="8" id="mCc-th-kws"/>
+                                        <constraint firstItem="3MV-Mq-2aE" firstAttribute="centerY" secondItem="Dil-IM-S7p" secondAttribute="centerY" id="qEF-YV-LZV"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="commentLabel" destination="zYc-L3-hKt" id="iRz-ZI-9b2"/>
+                                    <outlet property="doubleTapImageView" destination="3MV-Mq-2aE" id="DGw-8Q-ngM"/>
                                     <outlet property="likeButton" destination="Zez-Td-vCv" id="1Zl-0k-00O"/>
                                     <outlet property="selfieImageView" destination="roQ-Wc-Mey" id="vTF-SV-lVk"/>
                                     <outlet property="usernameLabel" destination="hsT-xs-XXE" id="8lj-9Z-rdD"/>
@@ -153,6 +165,7 @@
                         <connections>
                             <outlet property="dataSource" destination="XMt-Ki-jsu" id="gAt-pz-Kcb"/>
                             <outlet property="delegate" destination="XMt-Ki-jsu" id="miv-S3-pIf"/>
+                            <outletCollection property="gestureRecognizers" destination="DKQ-6G-qlW" appends="YES" id="syA-xc-hsM"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="jyS-uZ-vS3">
@@ -163,11 +176,19 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="lS3-LE-lTZ">
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="Q1u-Lt-XBS">
                         <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="refreshPulled:" destination="XMt-Ki-jsu" eventType="valueChanged" id="C1c-Sv-bf2"/>
+                        </connections>
                     </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ogw-Es-Rlm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="DKQ-6G-qlW">
+                    <connections>
+                        <action selector="doubleTappedSelfie:" destination="XMt-Ki-jsu" id="sIZ-pT-hko"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1598" y="-277"/>
         </scene>
@@ -269,7 +290,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cel-19-7l4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="855" y="-277"/>
+            <point key="canvasLocation" x="865" y="-277"/>
         </scene>
     </scenes>
     <resources>

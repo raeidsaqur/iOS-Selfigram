@@ -16,9 +16,7 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
     
     var words = ["Hello", "my", "name", "is", "Selfigram"]
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    func getPosts() {
         if let query = Post.query() {
             query.orderByDescending("createdAt")
             query.includeKey("user")
@@ -27,12 +25,44 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
                 if let posts = posts as? [Post]{
                     self.posts = posts
                     self.tableView.reloadData()
+                    // remove the spinning circle if needed
+                    self.refreshControl?.endRefreshing()
                 }
                 
             })
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        navigationItem.titleView = UIImageView(image: UIImage(named: "Selfigram-logo"))
+        
+        getPosts()
+        
+    }
+    
+    
+    @IBAction func doubleTappedSelfie(sender: UITapGestureRecognizer) {
+        
+        print("double tapped selfie")
+        
+        let tapLocation = sender.locationInView(tableView)
+        if let indexPathAtTapLocation = tableView.indexPathForRowAtPoint(tapLocation){
+            let cell = tableView.cellForRowAtIndexPath(indexPathAtTapLocation) as! SelfieCell
+            cell.tapAnimation()
+        }
         
         
+        
+        
+    }
+    
+    
+    
+    
+    @IBAction func refreshPulled(sender: UIRefreshControl) {
+        getPosts()
     }
     
     override func didReceiveMemoryWarning() {
