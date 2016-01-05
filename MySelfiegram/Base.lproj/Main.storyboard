@@ -30,7 +30,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="faY-rB-wxV">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="faY-rB-wxV">
                                 <rect key="frame" x="210" y="110" width="180" height="185"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="185" id="1gN-6z-X3i"/>
@@ -132,7 +132,7 @@
                                             </constraints>
                                         </imageView>
                                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hearts-on" translatesAutoresizingMaskIntoConstraints="NO" id="3MV-Mq-2aE">
-                                            <rect key="frame" x="289" y="150" width="23" height="20"/>
+                                            <rect key="frame" x="289" y="115" width="23" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="G5B-Fk-dRh"/>
                                                 <constraint firstAttribute="width" constant="23" id="nfN-3t-Tfh"/>
@@ -145,12 +145,12 @@
                                         <constraint firstItem="hsT-xs-XXE" firstAttribute="leading" secondItem="Dil-IM-S7p" secondAttribute="leadingMargin" id="CgA-NN-HWo"/>
                                         <constraint firstItem="roQ-Wc-Mey" firstAttribute="leading" secondItem="Dil-IM-S7p" secondAttribute="leading" id="FWW-BV-me6"/>
                                         <constraint firstItem="hsT-xs-XXE" firstAttribute="top" secondItem="roQ-Wc-Mey" secondAttribute="bottom" constant="8" id="UrH-M3-GG5"/>
+                                        <constraint firstItem="3MV-Mq-2aE" firstAttribute="centerY" secondItem="roQ-Wc-Mey" secondAttribute="centerY" id="XYI-Lu-ABZ"/>
                                         <constraint firstAttribute="trailing" secondItem="Zez-Td-vCv" secondAttribute="trailing" constant="8" id="aze-oz-xi5"/>
                                         <constraint firstAttribute="trailing" secondItem="roQ-Wc-Mey" secondAttribute="trailing" id="fpL-oR-EBN"/>
                                         <constraint firstItem="roQ-Wc-Mey" firstAttribute="top" secondItem="Dil-IM-S7p" secondAttribute="top" id="k4V-NQ-9eG"/>
                                         <constraint firstItem="zYc-L3-hKt" firstAttribute="leading" secondItem="Dil-IM-S7p" secondAttribute="leadingMargin" id="kAL-ed-3oe"/>
                                         <constraint firstItem="Zez-Td-vCv" firstAttribute="top" secondItem="roQ-Wc-Mey" secondAttribute="bottom" constant="8" id="mCc-th-kws"/>
-                                        <constraint firstItem="3MV-Mq-2aE" firstAttribute="centerY" secondItem="Dil-IM-S7p" secondAttribute="centerY" id="qEF-YV-LZV"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
