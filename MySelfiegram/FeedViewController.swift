@@ -31,14 +31,32 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
         
 //        posts = [post0, post1, post2, post3, post4]
         
+        let url: NSURL = NSURL(string: "https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&safe_search=3&nojsoncallback=1&api_key=e33dc5502147cf3fd3515aa44224783f&tags=cat")!
         
-        let task = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&safe_search=3&nojsoncallback=1&api_key=e33dc5502147cf3fd3515aa44224783f&tags=cat")!) { (data, response, error) -> Void in
-
+        let sharedURLSession: NSURLSession = NSURLSession.sharedSession()
+        
+         /**
+         Three type of tasks available: 
+         
+             1. Data tasks send and receive data using NSData objects. Data tasks are intended for short, often interactive requests to a server.
+             
+             2. Upload tasks are similar to data tasks, but they also send data (often in the form of a file), and support background uploads while the app is not running.
+             
+             3. Download tasks retrieve data in the form of a file, and support background downloads and uploads while the app is not running.
+         */
+        
+        
+        let dataTask = sharedURLSession.dataTaskWithURL(url) { (data, response, error) -> Void in
+            
+            print ("inside dataTaskWithURL with data = \(data)")
             if let jsonUnformatted = try? NSJSONSerialization.JSONObjectWithData(data!, options: []),
                 let json = jsonUnformatted as? [String : AnyObject],
                 let photosDictionary = json["photos"] as? [String : AnyObject],
                 let photosArray = photosDictionary["photo"] as? [[String : AnyObject]]
             {
+                print("json = \(json)")
+                print("photosDictionary = \(photosDictionary)")
+                print("photosArray = \(photosArray)")
                 
                 for photo in photosArray {
                     
@@ -63,14 +81,15 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
                     self.tableView.reloadData()
                 })
                 
-            }else{
+            } else{
                 print("error with response data")
             }
             
         }
         
-        task.resume()
-
+        dataTask.resume()
+        print ("outside dataTaskWithURL")
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -89,8 +108,9 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("postCell", forIndexPath: indexPath) as! SelfieCell
         
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("postCell", forIndexPath: indexPath) as! SelfieCell
         let post = self.posts[indexPath.row]
         
 
@@ -99,19 +119,21 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
         // This always resets the image to blank, waits for the image to download, and then sets it
         cell.selfieImageView.image = nil
         
-        let task = NSURLSession.sharedSession().downloadTaskWithURL(post.imageURL) { (url, response, error) -> Void in
+        //Remember the three tasks we can use, now we are downloading, hence we use the downloadTask
+        
+        let downloadTask = NSURLSession.sharedSession().downloadTaskWithURL(post.imageURL) { (url, response, error) -> Void in
             
             if let imageURL = url,
-                let imageData = NSData(contentsOfURL: imageURL){
+                let imageData = NSData(contentsOfURL: imageURL) {
+                    //Note: All UI updates must happen in the main thread
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        
                         cell.selfieImageView.image = UIImage(data: imageData)
                         
                     })
             }
         }
         
-        task.resume()
+        downloadTask.resume()
         
         cell.usernameLabel.text = post.user.username
         cell.commentLabel.text = post.comment
