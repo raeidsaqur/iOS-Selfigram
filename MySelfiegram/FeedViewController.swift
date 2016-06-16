@@ -58,14 +58,21 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
                 print("photosDictionary = \(photosDictionary)")
                 print("photosArray = \(photosArray)")
                 
+                //1: Get arguments
+                //2: form photo download url
+                //3: Update model object (store in Post)
+                //4: Handle errors, edge cases.
+                
+                
                 for photo in photosArray {
                     
                     if let farmID = photo["farm"] as? Int,
                         let serverID = photo["server"] as? String,
                         let photoID = photo["id"] as? String,
                         let secret = photo["secret"] as? String {
-                    
+                        
                             let photoURLString = "https://farm\(farmID).staticflickr.com/\(serverID)/\(photoID)_\(secret).jpg"
+                            //e.g url string: https://farm1.staticflickr.com/582/22992326269_b6c8fdff52.jpg
                             if let photoURL = NSURL(string: photoURLString){
                                 let me = User(aUsername: "danny", aProfileImage: UIImage(named: "grumpy-cat")!)
                                 let post = Post(imageURL: photoURL, user: me, comment: "A Flickr Selfie")
@@ -123,6 +130,7 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
         
         let downloadTask = NSURLSession.sharedSession().downloadTaskWithURL(post.imageURL) { (url, response, error) -> Void in
             
+            print("Inside download task")
             if let imageURL = url,
                 let imageData = NSData(contentsOfURL: imageURL) {
                     //Note: All UI updates must happen in the main thread
@@ -134,7 +142,7 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
         }
         
         downloadTask.resume()
-        
+        print("Outside download task")
         cell.usernameLabel.text = post.user.username
         cell.commentLabel.text = post.comment
         

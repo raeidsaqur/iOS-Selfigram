@@ -11,6 +11,7 @@ import UIKit
 class Post {
     
     let imageURL:NSURL
+    //e.g. imageURL: https://farm1.staticflickr.com/582/22992326269_b6c8fdff52.jpg
     let user:User
     let comment:String
     
