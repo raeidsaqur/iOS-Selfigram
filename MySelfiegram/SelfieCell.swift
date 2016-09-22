@@ -165,5 +165,11 @@ class SelfieCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
+    
+    
+    func randomBool() -> Bool {
+        return arc4random_uniform(2) == 0 ? true: false
+    }
+    
 
 }
