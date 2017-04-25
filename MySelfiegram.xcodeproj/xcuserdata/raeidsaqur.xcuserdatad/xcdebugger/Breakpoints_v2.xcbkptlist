@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MySelfiegram/FeedViewController.swift"
+            timestampString = "514848533.10877"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MySelfiegram.FeedViewController.(viewDidLoad () -&gt; ()).(closure #1)"
+                  moduleName = "MySelfiegram"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raeidsaqur/Developer/lhl/pt-ios/w4d1/iOS-Selfigram/MySelfiegram/FeedViewController.swift"
+                  timestampString = "514848668.082323"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "83"
+                  endingLineNumber = "83"
+                  offsetFromSymbolStart = "6265">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MySelfiegram.FeedViewController.(viewDidLoad () -&gt; ()).(closure #1)"
+                  moduleName = "MySelfiegram"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/raeidsaqur/Developer/lhl/pt-ios/w4d1/iOS-Selfigram/MySelfiegram/FeedViewController.swift"
+                  timestampString = "514848668.084967"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "83"
+                  endingLineNumber = "83"
+                  offsetFromSymbolStart = "6356">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

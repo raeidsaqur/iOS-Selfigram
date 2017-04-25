@@ -10,12 +10,12 @@ import UIKit
 
 class Post {
     
-    let imageURL:NSURL
+    let imageURL:URL
     //e.g. imageURL: https://farm1.staticflickr.com/582/22992326269_b6c8fdff52.jpg
     let user:User
     let comment:String
     
-    init(imageURL:NSURL, user:User, comment:String){
+    init(imageURL:URL, user:User, comment:String){
         // You can name the property you are passing into the function the
         // same name as the class' property. To distinguish the two
         // add "self." to the beginning of the class' property.

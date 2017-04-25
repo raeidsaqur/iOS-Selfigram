@@ -13,7 +13,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     
-    @IBAction func cameraButtonPressed(sender: AnyObject) {
+    @IBAction func cameraButtonPressed(_ sender: AnyObject) {
         
         // 1: Create an ImagePickerController
         let pickerController = UIImagePickerController()
@@ -26,21 +26,21 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         if TARGET_OS_SIMULATOR == 1 {
             // 3. We check if we are running on a Simulator
             //    If so, we pick a photo from the simulators Photo Library
-            pickerController.sourceType = .PhotoLibrary
+            pickerController.sourceType = .photoLibrary
         } else {
             // 4. We check if we are running on am iPhone or iPad (ie: not a simulator)
             //    If so, we open up the pickerController's Camera (Front Camera)
-            pickerController.sourceType = .Camera
-            pickerController.cameraDevice = .Front
-            pickerController.cameraCaptureMode = .Photo
+            pickerController.sourceType = .camera
+            pickerController.cameraDevice = .front
+            pickerController.cameraCaptureMode = .photo
         }
         
         // Preset the pickerController on screen
-        self.presentViewController(pickerController, animated: true, completion: nil)
+        self.present(pickerController, animated: true, completion: nil)
         
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         // 1. When the delegate method is returned, it passes along a dictionary called info.
         //    This dictionary contains multiple things that maybe useful to us.
@@ -53,7 +53,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
         
         //3. We remember to dismiss the Image Picker from our screen.
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
         
     }
     

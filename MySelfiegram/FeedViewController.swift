@@ -31,9 +31,16 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
         
 //        posts = [post0, post1, post2, post3, post4]
         
-        let url: NSURL = NSURL(string: "https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&safe_search=3&nojsoncallback=1&api_key=e33dc5502147cf3fd3515aa44224783f&tags=cat")!
+        ///ra..ur@yahoo.com /
+        //API key: db044ae1ff87028755bd70954811597a
         
-        let sharedURLSession: NSURLSession = NSURLSession.sharedSession()
+        let url: URL = URL(string: "https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&safe_search=3&nojsoncallback=1&api_key=db044ae1ff87028755bd70954811597a&tags=cat")!
+        
+//        let url: URL = URL(string: "https://www.flickr.com/services/rest/?method=flickr.photos.search&format=json&safe_search=3&nojsoncallback=1&api_key=e33dc5502147cf3fd3515aa44224783f&tags=cat")!
+//        
+        
+        
+        let sharedURLSession: URLSession = URLSession.shared
         
          /**
          Three type of tasks available: 
@@ -46,10 +53,10 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
          */
         
         
-        let dataTask = sharedURLSession.dataTaskWithURL(url) { (data, response, error) -> Void in
+        let dataTask = sharedURLSession.dataTask(with: url, completionHandler: { (data, response, error) -> Void in
             
             print ("inside dataTaskWithURL with data = \(data)")
-            if let jsonUnformatted = try? NSJSONSerialization.JSONObjectWithData(data!, options: []),
+            if let jsonUnformatted = try? JSONSerialization.jsonObject(with: data!, options: []),
                 let json = jsonUnformatted as? [String : AnyObject],
                 let photosDictionary = json["photos"] as? [String : AnyObject],
                 let photosArray = photosDictionary["photo"] as? [[String : AnyObject]]
@@ -73,8 +80,8 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
                         
                             let photoURLString = "https://farm\(farmID).staticflickr.com/\(serverID)/\(photoID)_\(secret).jpg"
                             //e.g url string: https://farm1.staticflickr.com/582/22992326269_b6c8fdff52.jpg
-                            if let photoURL = NSURL(string: photoURLString){
-                                let me = User(aUsername: "danny", aProfileImage: UIImage(named: "grumpy-cat")!)
+                            if let photoURL = URL(string: photoURLString){
+                                let me = User(aUsername: "danny", aProfileImage: UIImage(named: "Grumpy-Cat")!)
                                 let post = Post(imageURL: photoURL, user: me, comment: "A Flickr Selfie")
                                 self.posts.append(post)
                             }
@@ -84,7 +91,7 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
                 
                 // We use dispatch_async because we need update all UI elements on the main thread.
                 // This is a rule and you will see if again whenever you are updating UI.
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                DispatchQueue.main.async(execute: { () -> Void in
                     self.tableView.reloadData()
                 })
                 
@@ -92,7 +99,7 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
                 print("error with response data")
             }
             
-        }
+        }) 
         
         dataTask.resume()
         print ("outside dataTaskWithURL")
@@ -106,18 +113,18 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.posts.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("postCell", forIndexPath: indexPath) as! SelfieCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "postCell", for: indexPath) as! SelfieCell
         let post = self.posts[indexPath.row]
         
 
@@ -128,18 +135,18 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
         
         //Remember the three tasks we can use, now we are downloading, hence we use the downloadTask
         
-        let downloadTask = NSURLSession.sharedSession().downloadTaskWithURL(post.imageURL) { (url, response, error) -> Void in
+        let downloadTask = URLSession.shared.downloadTask(with: post.imageURL, completionHandler: { (url, response, error) -> Void in
             
             print("Inside download task")
             if let imageURL = url,
-                let imageData = NSData(contentsOfURL: imageURL) {
+                let imageData = try? Data(contentsOf: imageURL) {
                     //Note: All UI updates must happen in the main thread
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    DispatchQueue.main.async(execute: { () -> Void in
                         cell.selfieImageView.image = UIImage(data: imageData)
                         
                     })
             }
-        }
+        }) 
         
         downloadTask.resume()
         print("Outside download task")
@@ -149,7 +156,7 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
         return cell
     }
     
-    @IBAction func cameraButtonPressed(sender: AnyObject) {
+    @IBAction func cameraButtonPressed(_ sender: AnyObject) {
         
         // 1: Create an ImagePickerController
         let pickerController = UIImagePickerController()
@@ -162,27 +169,27 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
         if TARGET_OS_SIMULATOR == 1 {
             // 3. We check if we are running on a Simulator
             //    If so, we pick a photo from the simulators Photo Library
-            pickerController.sourceType = .PhotoLibrary
+            pickerController.sourceType = .photoLibrary
         } else {
             // 4. We check if we are running on am iPhone or iPad (ie: not a simulator)
             //    If so, we open up the pickerController's Camera (Front Camera)
-            pickerController.sourceType = .Camera
-            pickerController.cameraDevice = .Front
-            pickerController.cameraCaptureMode = .Photo
+            pickerController.sourceType = .camera
+            pickerController.cameraDevice = .front
+            pickerController.cameraCaptureMode = .photo
         }
         
         // Preset the pickerController on screen
-        self.presentViewController(pickerController, animated: true, completion: nil)
+        self.present(pickerController, animated: true, completion: nil)
         
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         // 1. When the delegate method is returned, it passes along a dictionary called info.
         //    This dictionary contains multiple things that maybe useful to us.
         //    We are getting the local URL on the phone where the image is stored 
         //    we are getting this from the UIImagePickerControllerReferenceURL key in that dictionary
-        if let imageURL = info[UIImagePickerControllerReferenceURL] as? NSURL {
+        if let imageURL = info[UIImagePickerControllerReferenceURL] as? URL {
             
             //2. We create a Post object from the image
             let me = User(aUsername: "danny", aProfileImage: UIImage(named: "grumpy-cat")!)
@@ -194,7 +201,7 @@ class FeedViewController: UITableViewController, UIImagePickerControllerDelegate
         }
         
         //4. We remember to dismiss the Image Picker from our screen.
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
         
         //5. Now that we have added a post, reload our table
         tableView.reloadData()
